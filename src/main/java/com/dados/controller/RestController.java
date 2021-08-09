@@ -37,7 +37,12 @@ public class RestController {
 	@PostMapping(value = "players")
 	public ResponseEntity<Jugador> crearJugador(@RequestBody Jugador jugador){
 		
+		jugador.setId(UUID.randomUUID());
 		jugador.setFecha();
+		
+		if(jugador.getNombre()==null) {
+			jugador.setNombre("Anonimo");
+		}
 		
 		Jugador newJugador = servicePartida.agregarJugador(jugador);
 		
@@ -57,9 +62,13 @@ public class RestController {
 			
 			if(p.getDado().getGanador() == true) {
 				ganadas++;
+				System.out.println("Ganadas!!!");
 			}
 			
 		}
+		
+		System.out.println("NUMERO GANADAS: "+ganadas);
+		System.out.println(partidas.size());
 		
 		double resultado = (100/partidas.size())*ganadas;
 		
@@ -155,7 +164,8 @@ public class RestController {
 		//inter id = dados.size()+1;
 		Dado dado = new Dado();
 		//dado.setId(id);
-		dado.tirarDados(6);
+		dado.tirarDados(6,4);
+		dado.setId(UUID.randomUUID());
 		
 		
 		Dado newDado = servicePartida.agregarDado(dado);
@@ -165,7 +175,7 @@ public class RestController {
 	
 	
 	@GetMapping(value = "players/{ID}/games") 
-	public ResponseEntity<List<Partida>> getPartidaId(@PathVariable("ID") String ID){
+	public ResponseEntity<List<Partida>> getPartidaId(@PathVariable("ID") UUID ID){
 		Optional<Jugador> optionalJugador = servicePartida.getJugadorId(ID);
 		
 		List<Partida> partidas = servicePartida.getPartidas();
@@ -207,7 +217,7 @@ public class RestController {
 	}
 	
 	@PostMapping(value = "players/{ID}/games")
-	public ResponseEntity<Partida> crearPartida(@PathVariable("ID") String ID,@RequestBody Partida partida){
+	public ResponseEntity<Partida> crearPartida(@PathVariable("ID") UUID ID,@RequestBody Partida partida){
 		
 		Optional<Jugador> optionalJugador = servicePartida.getJugadorId(ID);
 		
@@ -219,6 +229,7 @@ public class RestController {
 		int pos_Dado = dados.size()-1;
 		Optional<Dado> optionalDado = servicePartida.getDadoId(dados.get(pos_Dado).getId());
 		
+		partida.setId(UUID.randomUUID());
 		partida.setJugador(optionalJugador.get());
 		partida.setDado(optionalDado.get());
 		
@@ -228,7 +239,7 @@ public class RestController {
 	}
 	
 	@DeleteMapping(value = "players/{ID}/games") // Eliminar tiradas partida
-	public ResponseEntity<Void> deleteTiradaId(@PathVariable("ID") String ID){
+	public ResponseEntity<Void> deleteTiradaId(@PathVariable("ID") UUID ID){
 		
 		Optional<Jugador> optionalJugador = servicePartida.getJugadorId(ID);
 		
@@ -252,15 +263,14 @@ public class RestController {
 	}
 	
 	@DeleteMapping(value = "dado/{ID}/partida") // Eliminar tiradas partida
-	public ResponseEntity<Dado> deleteDadoId(@PathVariable("ID") String ID){
+	public ResponseEntity<Dado> deleteDadoId(@PathVariable("ID") UUID ID){
 		
 		Optional<Dado> optionalDado = servicePartida.getDadoId(ID);
 		
 		if(optionalDado.isPresent()) {
 			
 			Dado updateDado = optionalDado.get();
-			updateDado.setNum(0);
-			updateDado.setNum2(0);
+			updateDado.setDados();
 			updateDado.setGanador(false);
 			servicePartida.agregarDado(updateDado);
 			return ResponseEntity.ok(updateDado);

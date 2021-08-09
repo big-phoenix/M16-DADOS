@@ -2,6 +2,7 @@ package com.dados.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,7 @@ public class PartidaService implements IServicePartida {
 	}
 
 	@Override
-	public Optional<Jugador> getJugadorId(String id) {
+	public Optional<Jugador> getJugadorId(UUID id) {
 		
 		// TODO Auto-generated method stub
 		return jugadorDAO.findById(id);
@@ -58,7 +59,7 @@ public class PartidaService implements IServicePartida {
 
 	
 	@Override
-	public void eliminarJugador(String id) {
+	public void eliminarJugador(UUID id) {
 		// TODO Auto-generated method stub
 		jugadorDAO.deleteById(id);
 	}
@@ -70,7 +71,7 @@ public class PartidaService implements IServicePartida {
 	}
 
 	@Override
-	public Optional<Dado> getDadoId(String id) {
+	public Optional<Dado> getDadoId(UUID id) {
 		// TODO Auto-generated method stub
 		return dadoDAO.findById(id);
 	}
@@ -88,7 +89,7 @@ public class PartidaService implements IServicePartida {
 	}
 
 	@Override
-	public void eliminarDado(String id) {
+	public void eliminarDado(UUID id) {
 		// TODO Auto-generated method stub
 		dadoDAO.deleteById(id);
 	}
@@ -100,7 +101,7 @@ public class PartidaService implements IServicePartida {
 	}
 
 	@Override
-	public Optional<Partida> getPartidaId(String id) {
+	public Optional<Partida> getPartidaId(UUID id) {
 		// TODO Auto-generated method stub
 		return partidaDAO.findById(id);
 	}
@@ -118,7 +119,7 @@ public class PartidaService implements IServicePartida {
 	}
 
 	@Override
-	public void eliminarPartida(String id) {
+	public void eliminarPartida(UUID id) {
 		// TODO Auto-generated method stub
 		partidaDAO.deleteById(id);
 	}

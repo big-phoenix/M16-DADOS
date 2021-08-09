@@ -1,5 +1,7 @@
 package com.dados.model;
 
+import java.util.UUID;
+
 import javax.persistence.*;
 
 //import org.springframework.data.annotation.Id;
@@ -16,7 +18,8 @@ public class Partida {
 	@Id
 	//@Column(name = "id")
 	//@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private String id=null;
+	
+	private UUID id;
 	
 	//@OneToOne
 	//@JoinColumn(name = "jugador_id", unique = true)
@@ -38,11 +41,11 @@ public class Partida {
 		this.dado = dado;
 	}
 
-	public String getId() {
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 

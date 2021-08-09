@@ -2,6 +2,7 @@ package com.dados.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import com.dados.model.Dado;
 import com.dados.model.Jugador;
@@ -13,22 +14,22 @@ public interface IServicePartida {
 
 	
 	public List<Jugador> getJugadores();
-	public Optional<Jugador> getJugadorId(String uuid);
+	public Optional<Jugador> getJugadorId(UUID uuid);
 	public Jugador agregarJugador(Jugador jugador);
 	public Jugador editar(Jugador jugador);
-	public void eliminarJugador(String uuid);
+	public void eliminarJugador(UUID uuid);
 
 	public List<Dado> getDados();
-	public Optional<Dado> getDadoId(String uuid);
+	public Optional<Dado> getDadoId(UUID uuid);
 	public Dado agregarDado(Dado dado);
 	public Dado editar(Dado dado);
-	public void eliminarDado(String uuid);
+	public void eliminarDado(UUID uuid);
 	
 	public List<Partida> getPartidas();
-	public Optional<Partida> getPartidaId(String uuid);
+	public Optional<Partida> getPartidaId(UUID uuid);
 	public Partida agregarPartida(Partida partida);
 	public Partida editar(Partida partida);
-	public void eliminarPartida(String uuid);
+	public void eliminarPartida(UUID uuid);
 	
 	
 }

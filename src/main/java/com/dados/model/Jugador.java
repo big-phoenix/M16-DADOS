@@ -1,6 +1,7 @@
 package com.dados.model;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 import javax.persistence.*;
 
@@ -19,7 +20,7 @@ public class Jugador {
 	//@Column(name = "id")
 	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	
-	private String id=null;
+	private UUID id;
 	
 	@Field (name="nombre")
 	private String nombre;
@@ -31,18 +32,16 @@ public class Jugador {
 		
 	}
 	
-	public Jugador(String nombre) {
+	/*public Jugador(String nombre) {
 		super();
-		//this.id = id;
 		this.nombre = nombre;
-		//this.fecha = fecha;
-	}
+	}*/
 
-	public String getId() {
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 

@@ -1,6 +1,9 @@
 package com.dados.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 import javax.persistence.*;
 //import org.springframework.data.annotation.Id;
@@ -17,12 +20,11 @@ public class Dado {
 	@Id
 	//@Column(name = "id")
 	//@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private String id=null;
+	private UUID id;
 	
-	@Field (name="num")
-	private int num;
-	@Field (name="num2")
-	private int num2;
+	@Field(name="dados")
+	private List<Integer> dados = new ArrayList<>();
+	
 	@Field (name="ganador")
 	private boolean ganador;
 	
@@ -31,40 +33,32 @@ public class Dado {
 	}
 	
 
-	public Dado(int num, int num2,boolean ganador) {
+	public Dado(List<Integer> dados,boolean ganador) {
 		super();
-		//this.id = id;
-		this.num = num;
-		this.num2 = num2;
+		this.dados = dados;
 		this.ganador = ganador;
 	}
 
 
 
-	public String getId() {
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
-
-	public int getNum() {
-		return num;
-	}
-
-	public void setNum(int num) {
-		this.num = num;
-	}
-
-	public int getNum2() {
-		return num2;
-	}
-
-	public void setNum2(int num2) {
-		this.num2 = num2;
-	}
 	
+	public List<Integer> getDados() {
+		return dados;
+	}
+
+
+	public void setDados() {
+		for(int i=0;i<dados.size();i++) {
+			dados.set(i, 0);
+		}
+	}
 
 	public boolean getGanador() {
 		return ganador;
@@ -76,20 +70,26 @@ public class Dado {
 	}
 
 
-	public void tirarDados(int rang) {
+	public void tirarDados(int rang,int numDados) {
 		
 		Random rand = new Random();
-		int int_Ramdom1 = rand.nextInt(rang)+1;
-		int int_Ramdom2 = rand.nextInt(rang)+1;
+		int suma = 0;
 		
-		this.num = int_Ramdom1;
-		this.num2 = int_Ramdom2;
+		for(int i=0;i<numDados;i++) {
+			int int_Ramdom = rand.nextInt(rang)+1;
+			dados.add(int_Ramdom);
+			suma+=int_Ramdom;
+			System.out.println("El numero del dado es: "+int_Ramdom);
+		}
 		
-		if(num+num2==7) {
+		System.out.println("La SUMA ES :"+suma);
+		
+		if(suma == 7) {
 			this.ganador = true;
 		}else {
 			this.ganador = false;
 		}
+		
 		
 	}
 	
